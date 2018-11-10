@@ -176,7 +176,7 @@
 					return false;
 				}else{
 					xss = xss.substring(0,xss.length-1);
-					// alert("当前页面action为" + actionUrl + "的form表单第" + xss + "个input存在XSS漏洞");
+					alert("当前页面action为" + actionUrl + "的form表单第" + xss + "个input存在XSS漏洞");
 					$(tureForm[i]).find("input").eq(xss - 1).css("border"," 3px solid red")
 															.val("此输入框存在XSS	");
 					// $("body").append("<img src='http://xss.cn/formXSS.html?host=$" + href + "&$xss=$" + xss + "&$url=$" +actionUrl + "&$rand=$" + Date.parse(new Date()) + "' style='display:none;'>");
