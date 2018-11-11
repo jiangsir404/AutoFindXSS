@@ -9,14 +9,16 @@
       "https://*/*"
     ],
   	"js": [
-      "jquery2.1.4.js",
-      "base.js"
+      "js/jquery2.1.4.js",
+      "insert.js"
     ],
     "run_at": "document_end"
   }],
   "permissions": [     
     "tabs", "http://*/*","https://*/*",
-    "contextMenus"
+    "contextMenus",
+    "storage",
+    "webRequest", "webRequestBlocking", "*://*/", "tabs", "notifications","background"
   ],
   "background":{
     "scripts":["background.js"]
