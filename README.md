@@ -6,6 +6,11 @@
 
 更多工具->扩展程序->开启开发者模式->加载已解压的程序(AutoFindXss目录下AutoFindXSS目录)
 
+## 二次开发内容
+- [x] 去除掉伪静态xss检测(伪需求)
+- [x] 加入多个payload 检测
+- [x] 重构项目，加入开关功能，可以一键关闭AutoFindXss的运行。
+
 ## dmeo:
 
 GET:
